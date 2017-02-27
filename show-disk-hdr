@@ -1,0 +1,13 @@
+#!/bin/sh
+if [ $# -gt 1 ]; then
+	multi=yes
+else
+	multi=
+fi
+for dev in "$@"
+do
+	if [ "${multi}" ]; then
+		/bin/echo "${dev}:"
+	fi
+	/bin/dd if="${dev}" bs=64 count=1 2>/dev/null | /usr/bin/hexdump -Cv
+done
